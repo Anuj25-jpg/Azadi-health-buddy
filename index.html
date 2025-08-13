@@ -1,0 +1,1399 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Azadi Health Buddy - AI-Powered Wellness</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #00b894;
+            --secondary-color: #00a884;
+            --accent-color: #55efc4;
+            --light-color: #f5f6fa;
+            --dark-color: #2d3436;
+            --gradient: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--light-color);
+            color: var(--dark-color);
+            overflow-x: hidden;
+        }
+        
+        .navbar {
+            background-color: white;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.1);
+            padding: 15px 0;
+        }
+        
+        .navbar-brand {
+            font-weight: 700;
+            color: var(--primary-color) !important;
+            font-size: 1.5rem;
+        }
+        
+        .hero-section {
+            background: var(--gradient);
+            color: white;
+            padding: 6rem 0 4rem;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('https://images.unsplash.com/photo-1505751172876-fa1923c5c528?auto=format&fit=crop&w=1350&q=80') no-repeat center center;
+            background-size: cover;
+            opacity: 0.1;
+            z-index: 0;
+        }
+        
+        .hero-content {
+            position: relative;
+            z-index: 1;
+        }
+        
+        .feature-card {
+            border-radius: 20px;
+            border: none;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            margin-bottom: 25px;
+            height: 100%;
+            background-color: white;
+            overflow: hidden;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.12);
+        }
+        
+        .feature-icon {
+            font-size: 2.5rem;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 1rem;
+            display: inline-block;
+        }
+        
+        .btn-primary {
+            background: var(--gradient);
+            border: none;
+            padding: 10px 25px;
+            border-radius: 50px;
+            font-weight: 500;
+            transition: all 0.3s;
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 184, 148, 0.4);
+        }
+        
+        .wellness-dashboard {
+            background-color: white;
+            border-radius: 20px;
+            padding: 2.5rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .wellness-dashboard::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 100px;
+            height: 100px;
+            background: var(--gradient);
+            border-radius: 0 0 0 100px;
+            z-index: 0;
+            opacity: 0.1;
+        }
+        
+        .progress {
+            height: 12px;
+            margin-bottom: 1.5rem;
+            border-radius: 10px;
+            background-color: #dfe6e9;
+        }
+        
+        .progress-bar {
+            background: var(--gradient);
+            border-radius: 10px;
+        }
+        
+        .emergency-section {
+            background-color: white;
+            border-left: 5px solid #ff7675;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            transition: all 0.3s;
+        }
+        
+        .emergency-section:hover {
+            transform: translateX(5px);
+        }
+        
+        footer {
+            background-color: var(--dark-color);
+            color: white;
+            padding: 4rem 0 2rem;
+            margin-top: 5rem;
+            position: relative;
+        }
+        
+        footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 10px;
+            background: var(--gradient);
+            border-radius: 2px;
+        }
+        
+        .yoga-pose-card {
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: all 0.3s;
+            height: 100%;
+            background-color: white;
+        }
+        
+        .yoga-pose-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+        }
+        
+        .yoga-pose-card img {
+            height: 220px;
+            object-fit: cover;
+            transition: all 0.5s;
+        }
+        
+        .yoga-pose-card:hover img {
+            transform: scale(1.05);
+        }
+        
+        .meditation-card {
+            background: white;
+            border-radius: 15px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .meditation-card::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 5px;
+            height: 100%;
+            background: var(--gradient);
+        }
+        
+        .meditation-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+        
+        .badge {
+            font-weight: 500;
+            padding: 5px 10px;
+            border-radius: 50px;
+        }
+        
+        .section-title {
+            position: relative;
+            display: inline-block;
+            margin-bottom: 2rem;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 50px;
+            height: 4px;
+            background: var(--gradient);
+            border-radius: 2px;
+        }
+        
+        /* AI Chatbot Styles */
+        .chatbot-container {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            z-index: 1000;
+        }
+        
+        .chatbot-btn {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: var(--gradient);
+            color: white;
+            border: none;
+            box-shadow: 0 5px 20px rgba(0, 184, 148, 0.4);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .chatbot-btn:hover {
+            transform: scale(1.1);
+        }
+        
+        .chatbot-window {
+            position: absolute;
+            bottom: 80px;
+            right: 0;
+            width: 350px;
+            height: 500px;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            overflow: hidden;
+            display: none;
+            flex-direction: column;
+        }
+        
+        .chatbot-header {
+            background: var(--gradient);
+            color: white;
+            padding: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .chatbot-messages {
+            flex-grow: 1;
+            padding: 15px;
+            overflow-y: auto;
+            background-color: #f8f9fa;
+        }
+        
+        .message {
+            margin-bottom: 15px;
+            max-width: 80%;
+            padding: 10px 15px;
+            border-radius: 18px;
+            position: relative;
+        }
+        
+        .bot-message {
+            background-color: white;
+            border-top-left-radius: 5px;
+            align-self: flex-start;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        .user-message {
+            background: var(--gradient);
+            color: white;
+            border-top-right-radius: 5px;
+            align-self: flex-end;
+            margin-left: auto;
+        }
+        
+        .chatbot-input {
+            display: flex;
+            padding: 10px;
+            background-color: white;
+            border-top: 1px solid #eee;
+        }
+        
+        .chatbot-input input {
+            flex-grow: 1;
+            border: 1px solid #ddd;
+            border-radius: 50px;
+            padding: 10px 15px;
+            outline: none;
+        }
+        
+        .chatbot-input button {
+            background: var(--gradient);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            margin-left: 10px;
+            cursor: pointer;
+        }
+        
+        /* Modal Styles */
+        .modal-content {
+            border-radius: 15px;
+            border: none;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+        
+        .modal-header {
+            background: var(--gradient);
+            color: white;
+            border-radius: 15px 15px 0 0 !important;
+        }
+        
+        /* Yoga Pose Details */
+        .pose-details-img {
+            border-radius: 10px;
+            height: 300px;
+            object-fit: cover;
+            width: 100%;
+        }
+        
+        /* Animation */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .animate {
+            animation: fadeIn 0.6s ease forwards;
+        }
+        
+        /* Responsive Adjustments */
+        @media (max-width: 768px) {
+            .hero-section {
+                padding: 4rem 0 3rem;
+            }
+            
+            .chatbot-window {
+                width: 300px;
+                right: -20px;
+            }
+            
+            .pose-details-img {
+                height: 200px;
+            }
+        }
+        
+        /* Hide sections initially */
+        .content-section {
+            display: none;
+        }
+        
+        /* Show active section */
+        .active-section {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-light sticky-top">
+        <div class="container">
+            <a class="navbar-brand" href="#" id="homeLink">
+                <i class="fas fa-heartbeat me-2"></i>Azadi Health Buddy
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" id="featuresLink">Features</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" id="dashboardLink">Dashboard</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" id="yogaLink">Yoga</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" id="meditationLink">Meditation</a>
+                    </li>
+                </ul>
+                <button class="btn btn-outline-success ms-3" id="signInBtn">Sign In</button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Home Section -->
+    <section id="homeSection" class="content-section active-section">
+        <!-- Hero Section -->
+        <section class="hero-section">
+            <div class="container text-center hero-content">
+                <h1 class="display-4 fw-bold mb-4 animate" style="animation-delay: 0.1s;">Your Personal Wellness Companion</h1>
+                <p class="lead mb-4 animate" style="animation-delay: 0.2s;">Get instant, AI-powered health guidance in your language. From wellness tips to emergency support, we're here to help you take control of your health journey.</p>
+                <div class="d-flex justify-content-center gap-3 animate" style="animation-delay: 0.3s;">
+                    <button class="btn btn-light btn-lg px-4">Get Started</button>
+                    <button class="btn btn-outline-light btn-lg px-4">Learn More</button>
+                </div>
+                
+                <div class="alert alert-light mt-4 text-dark animate" style="animation-delay: 0.4s;" role="alert">
+                    <small><strong>Medical Disclaimer:</strong> This tool provides general wellness information only and is not a substitute for professional medical advice, diagnosis, or treatment.</small>
+                </div>
+            </div>
+        </section>
+
+        <!-- Emergency Services -->
+        <section class="container mt-5">
+            <div class="row animate" style="animation-delay: 0.5s;">
+                <div class="col-md-6">
+                    <div class="emergency-section">
+                        <h4><i class="fas fa-ambulance me-2"></i>Emergency Services 112</h4>
+                        <p class="mb-0">For immediate emergency assistance</p>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="emergency-section">
+                        <h4><i class="fas fa-plus-circle me-2"></i>Ambulance Service 108</h4>
+                        <p class="mb-0">For medical emergency transport</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Features Section -->
+        <section id="featuresSection" class="container my-5 py-5">
+            <h2 class="text-center section-title animate" style="animation-delay: 0.2s;">AI-Powered Wellness Features</h2>
+            <div class="row">
+                <div class="col-lg-6 mb-4 animate" style="animation-delay: 0.3s;">
+                    <div class="feature-card card p-4 h-100">
+                        <div class="card-body text-center">
+                            <div class="feature-icon">
+                                <i class="fas fa-robot"></i>
+                            </div>
+                            <h3 class="card-title">AI Health Assistant</h3>
+                            <p class="card-text">Hello! I'm your AI health companion. How can I help you with your wellness today?</p>
+                            <button class="btn btn-primary" id="openChatbot">Chat Now</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6 mb-4 animate" style="animation-delay: 0.4s;">
+                    <div class="feature-card card p-4 h-100">
+                        <div class="card-body text-center">
+                            <div class="feature-icon">
+                                <i class="fas fa-spa"></i>
+                            </div>
+                            <h3 class="card-title">Guided Meditation</h3>
+                            <p class="card-text">Find peace with our meditation sessions designed for all levels.</p>
+                            <button class="btn btn-primary" id="openMeditation">Start Session</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6 mb-4 animate" style="animation-delay: 0.5s;">
+                    <div class="feature-card card p-4 h-100">
+                        <div class="card-body text-center">
+                            <div class="feature-icon">
+                                <i class="fas fa-child"></i>
+                            </div>
+                            <h3 class="card-title">Yoga Poses</h3>
+                            <p class="card-text">Improve flexibility and strength with our curated yoga poses.</p>
+                            <button class="btn btn-primary" id="openYoga">Browse Poses</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6 mb-4 animate" style="animation-delay: 0.6s;">
+                    <div class="feature-card card p-4 h-100">
+                        <div class="card-body text-center">
+                            <div class="feature-icon">
+                                <i class="fas fa-heart"></i>
+                            </div>
+                            <h3 class="card-title">Daily Wellness</h3>
+                            <p class="card-text">Get personalized health tips tailored to your needs and goals.</p>
+                            <button class="btn btn-primary" id="openTips">Get Tips</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </section>
+
+    <!-- Dashboard Section -->
+    <section id="dashboardSection" class="content-section">
+        <div class="container my-5 py-5">
+            <h2 class="text-center section-title">Your Wellness Dashboard</h2>
+            <div class="wellness-dashboard">
+                <p class="text-center mb-4">Start tracking your wellness journey today!</p>
+                
+                <div class="row">
+                    <div class="col-md-3 mb-4">
+                        <h5><i class="fas fa-walking me-2"></i>Daily Steps</h5>
+                        <p>Goal: 10,000</p>
+                        <div class="progress">
+                            <div class="progress-bar" role="progressbar" style="width: 65%;" aria-valuenow="65" aria-valuemin="0" aria-valuemax="100">6,500</div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 mb-4">
+                        <h5><i class="fas fa-tint me-2"></i>Water Intake</h5>
+                        <p>Goal: 8 cups</p>
+                        <div class="progress">
+                            <div class="progress-bar" role="progressbar" style="width: 75%;" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100">6 cups</div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 mb-4">
+                        <h5><i class="fas fa-bed me-2"></i>Sleep</h5>
+                        <p>Goal: 8 hours</p>
+                        <div class="progress">
+                            <div class="progress-bar" role="progressbar" style="width: 62.5%;" aria-valuenow="62.5" aria-valuemin="0" aria-valuemax="100">5h</div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 mb-4">
+                        <h5><i class="fas fa-brain me-2"></i>Meditation</h5>
+                        <p>Goal: 20 min</p>
+                        <div class="progress">
+                            <div class="progress-bar" role="progressbar" style="width: 50%;" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100">10 min</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Yoga Section -->
+    <section id="yogaSection" class="content-section">
+        <div class="container my-5 py-5">
+            <h2 class="text-center section-title">Popular Yoga Poses</h2>
+            <div class="row">
+                <div class="col-md-4 mb-4">
+                    <div class="card yoga-pose-card h-100" data-bs-toggle="modal" data-bs-target="#poseModal" data-pose="downward-dog">
+                        <img src="https://images.unsplash.com/photo-1545205597-3d9d02c29597?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" class="card-img-top" alt="Downward Dog">
+                        <div class="card-body">
+                            <h5 class="card-title">Downward Dog</h5>
+                            <span class="badge bg-success">Beginner</span>
+                            <span class="badge bg-secondary ms-2">30 seconds</span>
+                            <p class="card-text mt-2">Strengthens arms and legs, stretches spine</p>
+                            <button class="btn btn-outline-primary">Try Pose</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <div class="card yoga-pose-card h-100" data-bs-toggle="modal" data-bs-target="#poseModal" data-pose="tree-pose">
+                        <img src="https://images.unsplash.com/photo-1545389336-cf090694435e?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" class="card-img-top" alt="Tree Pose">
+                        <div class="card-body">
+                            <h5 class="card-title">Tree Pose</h5>
+                            <span class="badge bg-success">Beginner</span>
+                            <span class="badge bg-secondary ms-2">45 seconds</span>
+                            <p class="card-text mt-2">Improves balance and strengthens legs</p>
+                            <button class="btn btn-outline-primary">Try Pose</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <div class="card yoga-pose-card h-100" data-bs-toggle="modal" data-bs-target="#poseModal" data-pose="warrior-pose">
+                        <img src="https://images.unsplash.com/photo-1575052814086-f385e2e2ad1b?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" class="card-img-top" alt="Warrior Pose">
+                        <div class="card-body">
+                            <h5 class="card-title">Warrior Pose</h5>
+                            <span class="badge bg-warning text-dark">Intermediate</span>
+                            <span class="badge bg-secondary ms-2">45 seconds</span>
+                            <p class="card-text mt-2">Builds strength and improves focus</p>
+                            <button class="btn btn-outline-primary">Try Pose</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <div class="card yoga-pose-card h-100" data-bs-toggle="modal" data-bs-target="#poseModal" data-pose="child-pose">
+                        <img src="https://images.unsplash.com/photo-1599901860904-17e6ed7083a0?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" class="card-img-top" alt="Child's Pose">
+                        <div class="card-body">
+                            <h5 class="card-title">Child's Pose</h5>
+                            <span class="badge bg-success">Beginner</span>
+                            <span class="badge bg-secondary ms-2">1 minute</span>
+                            <p class="card-text mt-2">Relaxes the back and relieves stress</p>
+                            <button class="btn btn-outline-primary">Try Pose</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <div class="card yoga-pose-card h-100" data-bs-toggle="modal" data-bs-target="#poseModal" data-pose="cobra-pose">
+                        <img src="https://images.unsplash.com/photo-1593810450967-f9c42742e326?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" class="card-img-top" alt="Cobra Pose">
+                        <div class="card-body">
+                            <h5 class="card-title">Cobra Pose</h5>
+                            <span class="badge bg-success">Beginner</span>
+                            <span class="badge bg-secondary ms-2">30 seconds</span>
+                            <p class="card-text mt-2">Strengthens the spine and opens chest</p>
+                            <button class="btn btn-outline-primary">Try Pose</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <div class="card yoga-pose-card h-100" data-bs-toggle="modal" data-bs-target="#poseModal" data-pose="bridge-pose">
+                        <img src="https://images.unsplash.com/photo-1599901860904-17e6ed7083a0?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" class="card-img-top" alt="Bridge Pose">
+                        <div class="card-body">
+                            <h5 class="card-title">Bridge Pose</h5>
+                            <span class="badge bg-warning text-dark">Intermediate</span>
+                            <span class="badge bg-secondary ms-2">45 seconds</span>
+                            <p class="card-text mt-2">Strengthens back and glutes</p>
+                            <button class="btn btn-outline-primary">Try Pose</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="text-center mt-4">
+                <button class="btn btn-primary">View All Poses</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Meditation Section -->
+    <section id="meditationSection" class="content-section">
+        <div class="container my-5 py-5">
+            <h2 class="text-center section-title">Meditation Sessions</h2>
+            <div class="row">
+                <div class="col-md-6 mb-4">
+                    <div class="meditation-card">
+                        <h4>Morning Mindfulness</h4>
+                        <p>Start your day with peaceful awareness</p>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <span class="badge bg-info">15 minutes</span>
+                            <button class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#meditationModal" data-session="morning">Start Session</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 mb-4">
+                    <div class="meditation-card">
+                        <h4>Sleep Stories</h4>
+                        <p>Peaceful bedtime narratives</p>
+                        <div class="d-flex justify-content-between align-items-center">
+ p">Start Session</button>                           <span class="badge bg-info">20 minutes</span>
+                            <button class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#meditationModal" data-session="slee
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 mb-4">
+                    <div class="meditation-card">
+                        <h4>Breathing Exercise</h4>
+                        <p>4-7-3 breathing technique</p>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <span class="badge bg-info">5 minutes</span>
+                            <button class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#meditationModal" data-session="breathing">Start Session</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 mb-4">
+                    <div class="meditation-card">
+                        <h4>Body Scan</h4>
+                        <p>Progressive muscle relaxation</p>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <span class="badge bg-info">15 minutes</span>
+                            <button class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#meditationModal" data-session="body-scan">Start Session</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 mb-4">
+                    <div class="meditation-card">
+                        <h4>Stress Relief</h4>
+                        <p>Guided meditation for anxiety</p>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <span class="badge bg-info">10 minutes</span>
+                            <button class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#meditationModal" data-session="stress">Start Session</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 mb-4">
+                    <div class="meditation-card">
+                        <h4>Loving Kindness</h4>
+                        <p>Cultivate compassion and empathy</p>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <span class="badge bg-info">12 minutes</span>
+                            <button class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#meditationModal" data-session="kindness">Start Session</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6 mb-4">
+                    <h4><i class="fas fa-heartbeat me-2"></i>Azadi Health Buddy</h4>
+                    <p>Empowering communities with accessible, AI-powered health guidance</p>
+                    <div class="social-icons mt-3">
+                        <a href="#" class="text-white me-3"><i class="fab fa-facebook-f fa-lg"></i></a>
+                        <a href="#" class="text-white me-3"><i class="fab fa-twitter fa-lg"></i></a>
+                        <a href="#" class="text-white me-3"><i class="fab fa-instagram fa-lg"></i></a>
+                        <a href="#" class="text-white"><i class="fab fa-linkedin-in fa-lg"></i></a>
+                    </div>
+                </div>
+                <div class="col-md-3 mb-4">
+                    <h5>Quick Links</h5>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><a href="#" class="text-white" id="footerHomeLink">Home</a></li>
+                        <li class="mb-2"><a href="#" class="text-white" id="footerFeaturesLink">Features</a></li>
+                        <li class="mb-2"><a href="#" class="text-white" id="footerDashboardLink">Dashboard</a></li>
+                        <li class="mb-2"><a href="#" class="text-white" id="footerYogaLink">Yoga</a></li>
+                        <li><a href="#" class="text-white" id="footerMeditationLink">Meditation</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-3 mb-4">
+                    <h5>Legal</h5>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><a href="#" class="text-white">Privacy Policy</a></li>
+                        <li class="mb-2"><a href="#" class="text-white">Terms of Service</a></li>
+                        <li><a href="#" class="text-white">Contact Support</a></li>
+                    </ul>
+                </div>
+            </div>
+            <hr class="bg-light">
+            <div class="text-center pt-3">
+                <small>&copy; 2023 Azadi Health Buddy. All rights reserved.</small>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Yoga Pose Modal -->
+    <div class="modal fade" id="poseModal" tabindex="-1" aria-labelledby="poseModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="poseModalLabel">Yoga Pose</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <img src="" id="poseDetailImage" class="pose-details-img mb-3" alt="Yoga Pose">
+                        </div>
+                        <div class="col-md-6">
+                            <h3 id="poseDetailTitle"></h3>
+                            <div id="poseDetailBadges" class="mb-3"></div>
+                            <h5>Benefits:</h5>
+                            <p id="poseDetailBenefits"></p>
+                            <h5>Instructions:</h5>
+                            <ol id="poseDetailInstructions"></ol>
+                            <div class="alert alert-info mt-3">
+                                <i class="fas fa-info-circle me-2"></i>Hold this pose for <span id="poseDetailDuration"></span> seconds, breathing deeply.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Start Timer</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Meditation Modal -->
+    <div class="modal fade" id="meditationModal" tabindex="-1" aria-labelledby="meditationModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="meditationModalLabel">Meditation Session</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <h3 id="meditationSessionTitle"></h3>
+                    <p id="meditationSessionDesc" class="mb-4"></p>
+                    <div class="text-center mb-4">
+                        <img src="https://images.unsplash.com/photo-1545205597-3d9d02c29597?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" class="pose-details-img" id="meditationSessionImage" alt="Meditation">
+                    </div>
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <span class="badge bg-info" id="meditationSessionDuration"></span>
+                        <div id="meditationTimer" class="fw-bold">00:00</div>
+                    </div>
+                    <div class="progress mb-4">
+                        <div class="progress-bar" id="meditationProgress" role="progressbar" style="width: 0%"></div>
+                    </div>
+                    <audio id="meditationAudio" controls class="w-100">
+                        Your browser does not support the audio element.
+                    </audio>
+                    <div class="alert alert-info mt-3">
+                        <i class="fas fa-info-circle me-2"></i>Find a comfortable position and focus on your breathing.
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" id="startMeditation">Start Session</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Sign In Modal -->
+    <div class="modal fade" id="signInModal" tabindex="-1" aria-labelledby="signInModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="signInModalLabel">Sign In to Azadi Health Buddy</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="signInForm">
+                        <div class="mb-3">
+                            <label for="email" class="form-label">Email address</label>
+                            <input type="email" class="form-control" id="email" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="password" class="form-label">Password</label>
+                            <input type="password" class="form-control" id="password" required>
+                        </div>
+                        <div class="mb-3 form-check">
+                            <input type="checkbox" class="form-check-input" id="rememberMe">
+                            <label class="form-check-label" for="rememberMe">Remember me</label>
+                        </div>
+                        <button type="submit" class="btn btn-primary w-100">Sign In</button>
+                    </form>
+                    <div class="text-center mt-3">
+                        <p>Don't have an account? <a href="#" id="showSignUp">Sign up</a></p>
+                        <a href="#">Forgot password?</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Sign Up Modal -->
+    <div class="modal fade" id="signUpModal" tabindex="-1" aria-labelledby="signUpModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="signUpModalLabel">Create an Account</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="signUpForm">
+                        <div class="mb-3">
+                            <label for="signupName" class="form-label">Full Name</label>
+                            <input type="text" class="form-control" id="signupName" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="signupEmail" class="form-label">Email address</label>
+                            <input type="email" class="form-control" id="signupEmail" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="signupPassword" class="form-label">Password</label>
+                            <input type="password" class="form-control" id="signupPassword" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="confirmPassword" class="form-label">Confirm Password</label>
+                            <input type="password" class="form-control" id="confirmPassword" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary w-100">Create Account</button>
+                    </form>
+                    <div class="text-center mt-3">
+                        <p>Already have an account? <a href="#" id="showSignIn">Sign in</a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- AI Chatbot -->
+    <div class="chatbot-container">
+        <div class="chatbot-window" id="chatbotWindow">
+            <div class="chatbot-header">
+                <h6 class="mb-0"><i class="fas fa-robot me-2"></i>Health Assistant</h6>
+                <button class="btn btn-sm btn-light p-0" id="closeChatbot" style="width: 25px; height: 25px; border-radius: 50%;">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="chatbot-messages" id="chatbotMessages">
+                <div class="message bot-message">
+                    Hello! I'm your AI health companion. How can I help you with your wellness today?
+                </div>
+                <div class="message bot-message">
+                    You can ask me about:
+                    <ul class="mt-2 mb-0">
+                        <li>General health tips</li>
+                        <li>Meditation guidance</li>
+                        <li>Yoga poses</li>
+                        <li>Wellness tracking</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="chatbot-input">
+                <input type="text" id="userInput" placeholder="Type your message...">
+                <button id="sendMessage"><i class="fas fa-paper-plane"></i></button>
+            </div>
+        </div>
+        <button class="chatbot-btn" id="chatbotBtn">
+            <i class="fas fa-robot fa-lg"></i>
+        </button>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Yoga pose data
+        const yogaPoses = {
+            'downward-dog': {
+                title: 'Downward Dog',
+                image: 'https://images.unsplash.com/photo-1545205597-3d9d02c29597?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60',
+                level: 'Beginner',
+                duration: '30',
+                benefits: 'Strengthens arms and legs, stretches the spine, improves circulation, and calms the mind.',
+                instructions: [
+                    'Start on your hands and knees with wrists under shoulders and knees under hips',
+                    'Spread your fingers wide and press firmly through your palms',
+                    'Exhale as you lift your knees away from the floor',
+                    'Lengthen your tailbone away from the back of your pelvis',
+                    'Hold the pose, breathing deeply'
+                ]
+            },
+            'tree-pose': {
+                title: 'Tree Pose',
+                image: 'https://images.unsplash.com/photo-1545389336-cf090694435e?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60',
+                level: 'Beginner',
+                duration: '45',
+                benefits: 'Improves balance, strengthens legs and core, opens hips, and improves focus.',
+                instructions: [
+                    'Stand tall with feet together and arms at your sides',
+                    'Shift your weight onto your left foot',
+                    'Place the sole of your right foot on your inner left thigh',
+                    'Bring your hands to prayer position at your chest',
+                    'Focus on a point in front of you to maintain balance'
+                ]
+            },
+            'warrior-pose': {
+                title: 'Warrior II Pose',
+                image: 'https://images.unsplash.com/photo-1575052814086-f385e2e2ad1b?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60',
+                level: 'Intermediate',
+                duration: '45',
+                benefits: 'Strengthens legs and arms, opens hips and chest, improves balance and focus.',
+                instructions: [
+                    'Stand with feet wide apart, about 4 feet',
+                    'Turn your right foot out 90 degrees and left foot in slightly',
+                    'Extend arms parallel to the floor, palms facing down',
+                    'Bend your right knee over right ankle',
+                    'Gaze over your right hand and hold the pose'
+                ]
+            },
+            'child-pose': {
+                title: "Child's Pose",
+                image: 'https://images.unsplash.com/photo-1599901860904-17e6ed7083a0?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60',
+                level: 'Beginner',
+                duration: '60',
+                benefits: 'Gently stretches the hips, thighs, and ankles, calms the brain, and relieves stress and fatigue.',
+                instructions: [
+                    'Kneel on the floor with toes together and knees hip-width apart',
+                    'Sit back onto your heels',
+                    'Fold forward, lowering your torso between your thighs',
+                    'Extend your arms forward or alongside your body',
+                    'Rest your forehead on the floor and breathe deeply'
+                ]
+            },
+            'cobra-pose': {
+                title: 'Cobra Pose',
+                image: 'https://images.unsplash.com/photo-1593810450967-f9c42742e326?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60',
+                level: 'Beginner',
+                duration: '30',
+                benefits: 'Strengthens the spine, stretches chest and lungs, opens the heart, and improves posture.',
+                instructions: [
+                    'Lie prone on the floor with legs extended',
+                    'Place hands under shoulders, elbows close to torso',
+                    'Press tops of feet and thighs into the floor',
+                    'Inhale and lift chest off the floor',
+                    'Keep elbows slightly bent and shoulders down'
+                ]
+            },
+            'bridge-pose': {
+                title: 'Bridge Pose',
+                image: 'https://images.unsplash.com/photo-1599901860904-17e6ed7083a0?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60',
+                level: 'Intermediate',
+                duration: '45',
+                benefits: 'Strengthens back muscles, glutes, and hamstrings, opens chest, and improves spinal flexibility.',
+                instructions: [
+                    'Lie on your back with knees bent and feet hip-width apart',
+                    'Place arms alongside body, palms down',
+                    'Press feet into floor as you lift hips toward ceiling',
+                    'Clasp hands under pelvis and extend through arms',
+                    'Keep thighs parallel and knees over heels'
+                ]
+            }
+        };
+
+        // Meditation session data
+        const meditationSessions = {
+            'morning': {
+                title: 'Morning Mindfulness',
+                desc: 'Start your day with this peaceful awareness meditation to set positive intentions and cultivate mindfulness.',
+                duration: '15 minutes',
+                audio: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3'
+            },
+            'sleep': {
+                title: 'Sleep Stories',
+                desc: 'Gentle bedtime narratives to help you relax, unwind, and prepare your mind and body for restful sleep.',
+                duration: '20 minutes',
+                audio: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3'
+            },
+            'breathing': {
+                title: 'Breathing Exercise',
+                desc: '4-7-8 breathing technique to calm the nervous system, reduce anxiety, and promote relaxation.',
+                duration: '5 minutes',
+                audio: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3'
+            },
+            'body-scan': {
+                title: 'Body Scan',
+                desc: 'Progressive muscle relaxation technique to release tension throughout the body and calm the mind.',
+                duration: '15 minutes',
+                audio: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-4.mp3'
+            },
+            'stress': {
+                title: 'Stress Relief',
+                desc: 'Guided meditation specifically designed to reduce stress and anxiety, promoting feelings of peace.',
+                duration: '10 minutes',
+                audio: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-5.mp3'
+            },
+            'kindness': {
+                title: 'Loving Kindness',
+                desc: 'Cultivate compassion and empathy for yourself and others with this heart-opening meditation.',
+                duration: '12 minutes',
+                audio: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-6.mp3'
+            }
+        };
+
+        document.addEventListener('DOMContentLoaded', function() {
+            // Navigation functionality
+            const sections = {
+                home: document.getElementById('homeSection'),
+                features: document.getElementById('featuresSection'),
+                dashboard: document.getElementById('dashboardSection'),
+                yoga: document.getElementById('yogaSection'),
+                meditation: document.getElementById('meditationSection')
+            };
+
+            const navLinks = {
+                home: document.getElementById('homeLink'),
+                features: document.getElementById('featuresLink'),
+                dashboard: document.getElementById('dashboardLink'),
+                yoga: document.getElementById('yogaLink'),
+                meditation: document.getElementById('meditationLink'),
+                footerHome: document.getElementById('footerHomeLink'),
+                footerFeatures: document.getElementById('footerFeaturesLink'),
+                footerDashboard: document.getElementById('footerDashboardLink'),
+                footerYoga: document.getElementById('footerYogaLink'),
+                footerMeditation: document.getElementById('footerMeditationLink')
+            };
+
+            const featureButtons = {
+                meditation: document.getElementById('openMeditation'),
+                yoga: document.getElementById('openYoga'),
+                tips: document.getElementById('openTips')
+            };
+
+            // Show section and hide others
+            function showSection(sectionId) {
+                Object.values(sections).forEach(section => {
+                    section.classList.remove('active-section');
+                });
+                sections[sectionId].classList.add('active-section');
+                window.scrollTo(0, 0);
+            }
+
+            // Add event listeners to nav links
+            Object.entries(navLinks).forEach(([key, link]) => {
+                if (link) {
+                    link.addEventListener('click', function(e) {
+                        e.preventDefault();
+                        const sectionId = key.replace('footer', '').toLowerCase();
+                        showSection(sectionId);
+                    });
+                }
+            });
+
+            // Add event listeners to feature buttons
+            featureButtons.meditation.addEventListener('click', function() {
+                showSection('meditation');
+            });
+            
+            featureButtons.yoga.addEventListener('click', function() {
+                showSection('yoga');
+            });
+            
+            featureButtons.tips.addEventListener('click', function() {
+                showSection('dashboard');
+            });
+
+            // Sign in/up functionality
+            const signInBtn = document.getElementById('signInBtn');
+            const signInModal = new bootstrap.Modal(document.getElementById('signInModal'));
+            const signUpModal = new bootstrap.Modal(document.getElementById('signUpModal'));
+            const showSignUp = document.getElementById('showSignUp');
+            const showSignIn = document.getElementById('showSignIn');
+            
+            signInBtn.addEventListener('click', function() {
+                signInModal.show();
+            });
+            
+            showSignUp.addEventListener('click', function(e) {
+                e.preventDefault();
+                signInModal.hide();
+                signUpModal.show();
+            });
+            
+            showSignIn.addEventListener('click', function(e) {
+                e.preventDefault();
+                signUpModal.hide();
+                signInModal.show();
+            });
+            
+            // Form submission
+            document.getElementById('signInForm').addEventListener('submit', function(e) {
+                e.preventDefault();
+                alert('Sign in functionality would be implemented here with backend integration');
+                signInModal.hide();
+            });
+            
+            document.getElementById('signUpForm').addEventListener('submit', function(e) {
+                e.preventDefault();
+                alert('Account creation would be implemented here with backend integration');
+                signUpModal.hide();
+            });
+
+            // Yoga pose modal functionality
+            const poseModal = new bootstrap.Modal(document.getElementById('poseModal'));
+            const poseDetailImage = document.getElementById('poseDetailImage');
+            const poseDetailTitle = document.getElementById('poseDetailTitle');
+            const poseDetailBadges = document.getElementById('poseDetailBadges');
+            const poseDetailBenefits = document.getElementById('poseDetailBenefits');
+            const poseDetailInstructions = document.getElementById('poseDetailInstructions');
+            const poseDetailDuration = document.getElementById('poseDetailDuration');
+            
+            document.querySelectorAll('[data-bs-target="#poseModal"]').forEach(button => {
+                button.addEventListener('click', function() {
+                    const poseId = this.getAttribute('data-pose');
+                    const pose = yogaPoses[poseId];
+                    
+                    poseDetailImage.src = pose.image;
+                    poseDetailTitle.textContent = pose.title;
+                    poseDetailBenefits.textContent = pose.benefits;
+                    poseDetailDuration.textContent = pose.duration;
+                    
+                    // Create badges
+                    poseDetailBadges.innerHTML = `
+                        <span class="badge ${pose.level === 'Beginner' ? 'bg-success' : 'bg-warning text-dark'}">${pose.level}</span>
+                        <span class="badge bg-secondary ms-2">${pose.duration} seconds</span>
+                    `;
+                    
+                    // Create instructions list
+                    poseDetailInstructions.innerHTML = '';
+                    pose.instructions.forEach(instruction => {
+                        const li = document.createElement('li');
+                        li.textContent = instruction;
+                        poseDetailInstructions.appendChild(li);
+                    });
+                });
+            });
+
+            // Meditation modal functionality
+            const meditationModal = new bootstrap.Modal(document.getElementById('meditationModal'));
+            const meditationSessionTitle = document.getElementById('meditationSessionTitle');
+            const meditationSessionDesc = document.getElementById('meditationSessionDesc');
+            const meditationSessionDuration = document.getElementById('meditationSessionDuration');
+            const meditationAudio = document.getElementById('meditationAudio');
+            const startMeditationBtn = document.getElementById('startMeditation');
+            const meditationTimer = document.getElementById('meditationTimer');
+            const meditationProgress = document.getElementById('meditationProgress');
+            
+            let meditationInterval;
+            let secondsRemaining = 0;
+            let totalDuration = 0;
+            
+            document.querySelectorAll('[data-bs-target="#meditationModal"]').forEach(button => {
+                button.addEventListener('click', function() {
+                    const sessionId = this.getAttribute('data-session');
+                    const session = meditationSessions[sessionId];
+                    
+                    meditationSessionTitle.textContent = session.title;
+                    meditationSessionDesc.textContent = session.desc;
+                    meditationSessionDuration.textContent = session.duration;
+                    meditationAudio.src = session.audio;
+                    
+                    // Extract minutes from duration (e.g., "15 minutes" -> 15)
+                    totalDuration = parseInt(session.duration) * 60;
+                    secondsRemaining = totalDuration;
+                    updateMeditationTimer();
+                    
+                    // Reset progress bar
+                    meditationProgress.style.width = '0%';
+                    
+                    // Reset button text
+                    startMeditationBtn.textContent = 'Start Session';
+                });
+            });
+            
+            function updateMeditationTimer() {
+                const minutes = Math.floor(secondsRemaining / 60);
+                const seconds = secondsRemaining % 60;
+                meditationTimer.textContent = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+                
+                // Update progress bar
+                const progress = ((totalDuration - secondsRemaining) / totalDuration) * 100;
+                meditationProgress.style.width = `${progress}%`;
+            }
+            
+            startMeditationBtn.addEventListener('click', function() {
+                if (this.textContent === 'Start Session') {
+                    // Start meditation
+                    meditationAudio.play();
+                    this.textContent = 'Pause Session';
+                    
+                    meditationInterval = setInterval(() => {
+                        secondsRemaining--;
+                        updateMeditationTimer();
+                        
+                        if (secondsRemaining <= 0) {
+                            clearInterval(meditationInterval);
+                            this.textContent = 'Restart Session';
+                            meditationAudio.pause();
+                        }
+                    }, 1000);
+                } else if (this.textContent === 'Pause Session') {
+                    // Pause meditation
+                    clearInterval(meditationInterval);
+                    meditationAudio.pause();
+                    this.textContent = 'Resume Session';
+                } else {
+                    // Restart or resume
+                    secondsRemaining = totalDuration;
+                    updateMeditationTimer();
+                    this.textContent = 'Pause Session';
+                    meditationAudio.currentTime = 0;
+                    meditationAudio.play();
+                    
+                    meditationInterval = setInterval(() => {
+                        secondsRemaining--;
+                        updateMeditationTimer();
+                        
+                        if (secondsRemaining <= 0) {
+                            clearInterval(meditationInterval);
+                            this.textContent = 'Restart Session';
+                            meditationAudio.pause();
+                        }
+                    }, 1000);
+                }
+            });
+            
+            meditationModal._element.addEventListener('hidden.bs.modal', function() {
+                // Clean up when modal is closed
+                clearInterval(meditationInterval);
+                meditationAudio.pause();
+                meditationAudio.currentTime = 0;
+            });
+
+            // Chatbot functionality
+            const chatbotBtn = document.getElementById('chatbotBtn');
+            const chatbotWindow = document.getElementById('chatbotWindow');
+            const closeChatbot = document.getElementById('closeChatbot');
+            const openChatbot = document.getElementById('openChatbot');
+            const sendMessage = document.getElementById('sendMessage');
+            const userInput = document.getElementById('userInput');
+            const chatbotMessages = document.getElementById('chatbotMessages');
+            
+            // Toggle chatbot window
+            chatbotBtn.addEventListener('click', function() {
+                chatbotWindow.style.display = chatbotWindow.style.display === 'flex' ? 'none' : 'flex';
+            });
+            
+            closeChatbot.addEventListener('click', function() {
+                chatbotWindow.style.display = 'none';
+            });
+            
+            openChatbot.addEventListener('click', function() {
+                chatbotWindow.style.display = 'flex';
+            });
+            
+            // Send message function
+            function sendUserMessage() {
+                const message = userInput.value.trim();
+                if (message === '') return;
+                
+                // Add user message to chat
+                const userMessage = document.createElement('div');
+                userMessage.className = 'message user-message';
+                userMessage.textContent = message;
+                chatbotMessages.appendChild(userMessage);
+                
+                // Clear input
+                userInput.value = '';
+                
+                // Scroll to bottom
+                chatbotMessages.scrollTop = chatbotMessages.scrollHeight;
+                
+                // Simulate bot response
+                setTimeout(() => {
+                    const botResponse = getBotResponse(message);
+                    const botMessage = document.createElement('div');
+                    botMessage.className = 'message bot-message';
+                    botMessage.innerHTML = botResponse;
+                    chatbotMessages.appendChild(botMessage);
+                    chatbotMessages.scrollTop = chatbotMessages.scrollHeight;
+                }, 1000);
+            }
+            
+            // Send message on button click or Enter key
+            sendMessage.addEventListener('click', sendUserMessage);
+            
+            userInput.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    sendUserMessage();
+                }
+            });
+            
+            // Simple response logic
+            function getBotResponse(message) {
+                const lowerMsg = message.toLowerCase();
+                
+                if (lowerMsg.includes('hello') || lowerMsg.includes('hi')) {
+                    return "Hello there! How can I assist you with your wellness today?";
+                } else if (lowerMsg.includes('meditation')) {
+                    return "Meditation is great for mental health! Try our <strong>Morning Mindfulness</strong> session to start your day peacefully. Would you like me to guide you through a quick breathing exercise?";
+                } else if (lowerMsg.includes('yoga') || lowerMsg.includes('pose')) {
+                    return "Yoga can improve flexibility and reduce stress. The <strong>Downward Dog</strong> pose is excellent for beginners. Would you like instructions for this pose?";
+                } else if (lowerMsg.includes('water') || lowerMsg.includes('hydrate')) {
+                    return "Staying hydrated is crucial! Aim for 8 glasses (about 2 liters) of water daily. Try setting reminders if you forget to drink water throughout the day.";
+                } else if (lowerMsg.includes('sleep')) {
+                    return "Quality sleep is essential for health. Adults typically need 7-9 hours per night. Our <strong>Sleep Stories</strong> can help you relax before bedtime.";
+                } else if (lowerMsg.includes('stress') || lowerMsg.includes('anxious')) {
+                    return "For stress relief, try the <strong>4-7-8 breathing technique</strong>: Inhale for 4 seconds, hold for 7 seconds, exhale for 8 seconds. Repeat 3-4 times. Would you like a guided session?";
+                } else if (lowerMsg.includes('thank')) {
+                    return "You're welcome! Remember, I'm here whenever you need wellness advice. Take care!";
+                } else {
+                    return "I'm here to help with your wellness journey. You can ask me about meditation, yoga, hydration, sleep, or general health tips. What would you like to know?";
+                }
+            }
+            
+            // Animation on scroll
+            const animateElements = document.querySelectorAll('.animate');
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = 1;
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            }, { threshold: 0.1 });
+            
+            animateElements.forEach(element => {
+                element.style.opacity = 0;
+                element.style.transform = 'translateY(20px)';
+                element.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+                observer.observe(element);
+            });
+        });
+    </script>
+</body>
+</html>
